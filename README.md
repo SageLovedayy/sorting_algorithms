@@ -1,4 +1,4 @@
-# Sorting Algorithms in C
+# 0x1B. C - Sorting algorithms & Big O
 
 This repository contains C implementations of various sorting algorithms as part of the 0x1B project on Sorting algorithms and Big O notation. The project involves implementing the Bubble sort, Insertion sort, Selection sort, and Quick sort algorithms. Each sorting algorithm has a specific function that sorts an array of integers or a doubly linked list of integers in ascending order.
 
