@@ -13,11 +13,7 @@ size_t lomuto_partition(int *array, size_t low, size_t high, size_t size)
 	int temp, pivot;
 	size_t i, j;
 
-	if (array == NULL || low >= high || high >= size)
-	{
-		/*printf("Invalid arguments in lomuto_partition\n");*/
-		return (0);
-	}
+
 	pivot = array[high];
 	i = low - 1;
 	/*printf("Pivot: %d\n", pivot);*/
