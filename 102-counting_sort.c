@@ -1,51 +1,59 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include "sort.h"
 
-void counting_sort(int *array, size_t size) {
-    int max_element = 0;
-    size_t i, index;
-    int *counting_array;
+/**
+* countingSort - sorts an array of integers in ascending order
+ * using the Counting sort algorithm
+ * @arr: the array to be sorted
+ * @arr_size: number of elements in @arr
+ */
 
-    /* Find the maximum element in the array */
-    for (i = 0; i < size; ++i) {
-        if (array[i] > max_element) {
-            max_element = array[i];
+void counting_sort(int *arr, size_t arr_size)
+{
+    size_t cumul;
+    int *sorted_arr, index_i, index_j, max_value;
+
+    /* Check if the array is empty or has only one element */
+    if (!arr || arr_size < 2)
+        return;
+
+    max_value = 0;
+    for (index_i = 0; index_i < (int)arr_size; index_i++)
+        if (arr[index_i] > max_value)
+            max_value = arr[index_i];
+
+    sorted_arr = malloc(sizeof(int) * ++max_value);
+    if (!sorted_arr)
+        return;
+
+    /* Initialize the counting array with zeros */
+    for (index_i = 0; index_i < max_value; index_i++)
+        sorted_arr[index_i] = 0;
+
+    /* Count the occurrences of each element in the array */
+    for (index_i = 0; index_i < (int)arr_size; index_i++)
+        sorted_arr[arr[index_i]] += 1;
+
+    /* Reconstruct the sorted array using the counting array */
+    for (index_i = index_j = 0; index_i < max_value && index_j < (int)arr_size; index_i++)
+    {
+        cumul = sorted_arr[index_i];
+        while (cumul > 0)
+        {
+            arr[index_j] = index_i;
+            cumul--;
+            index_j++;
         }
     }
 
-    /* Create and initialize the counting array */
-    counting_array = (int *)malloc((max_element + 1) * sizeof(int));
-    if (counting_array == NULL) {
-        fprintf(stderr, "Memory allocation error\n");
-        exit(EXIT_FAILURE);
+    /* Update the counting array to store cumulative frequencies */
+    cumul = 0;
+    for (index_i = 0; index_i < max_value; index_i++)
+    {
+        cumul += sorted_arr[index_i];
+        sorted_arr[index_i] = cumul;
     }
 
-    for (i = 0; i <= (size_t)max_element; ++i) {
-        counting_array[i] = 0;
-    }
-
-    /* Count occurrences of each element in the array */
-    for (i = 0; i < size; ++i) {
-        counting_array[array[i]]++;
-    }
-
-    /* Print the counting array */
-    printf("Counting array: ");
-    for (i = 0; i <= (size_t)max_element; ++i) {
-        printf("%d ", counting_array[i]);
-    }
-    printf("\n");
-
-    /* Update the original array with sorted values */
-    index = 0;
-    for (i = 0; i <= (size_t)max_element; ++i) {
-        while (counting_array[i] > 0) {
-            array[index++] = i;
-            counting_array[i]--;
-        }
-    }
-
-    /* Free dynamically allocated memory */
-    free(counting_array);
+    /* Print the sorted array */
+    print_array(sorted_arr, max_value);
+    free(sorted_arr);
 }
-
