@@ -17,7 +17,7 @@ size_t lomuto_partition(int *array, size_t low, size_t high, size_t size)
 	{
 		/* Invalid arguments in lomuto_partition */
 		/*printf("Invalid arguments in lomuto_partition\n");*/
-		return 0; /* Adjust the return type accordingly */
+		return 0;
     }
 
     pivot = array[high];
