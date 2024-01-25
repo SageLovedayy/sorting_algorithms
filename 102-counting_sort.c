@@ -28,7 +28,9 @@ void counting_sort(int *arr, size_t arr_size)
 	for (index_i = 0; index_i < (int)arr_size; index_i++)
 		sorted_arr[arr[index_i]] += 1;
 	/* Reconstruct the sorted array using the counting array */
-	for (index_i = index_j = 0; index_i < max_value && index_j < (int)arr_size; index_i++)
+	for (index_i = index_j = 0;
+		index_i < max_value && index_j < (int)arr_size;
+		index_i++)
 	{
 		cumul = sorted_arr[index_i];
 		while (cumul > 0)
@@ -45,7 +47,6 @@ void counting_sort(int *arr, size_t arr_size)
 		cumul += sorted_arr[index_i];
 		sorted_arr[index_i] = cumul;
 	}
-	/* Print the sorted array */
 	print_array(sorted_arr, max_value);
 	free(sorted_arr);
 }
